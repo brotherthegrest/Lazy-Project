@@ -1,5 +1,5 @@
 /*
-Copyright © 2023 NAME HERE <EMAIL ADDRESS>
+Copyright © 2023 Alan Hildebrandt <Alanhild715@gmail.com>
 
 */
 package cmd
@@ -7,24 +7,26 @@ package cmd
 import (
 	"os"
 
+	"fmt"
+	"github.com/aditya43/clear-shell-screen-golang"
 	"github.com/spf13/cobra"
 )
-
+func clear(){
+	
+}
 
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "Lazy-Project",
-	Short: "A brief description of your application",
-	Long: `A longer description that spans multiple lines and likely contains
-examples and usage of using your application. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "terminal based project manager",
+	Long: `Lazy-Project is a terminal based project manager insipred by LazyGit`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
-	// Run: func(cmd *cobra.Command, args []string) { },
+	Run: func(cmd *cobra.Command, args []string) {
+		screen.Clear()
+		fmt.Println("Hello World!")
+	 },
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
