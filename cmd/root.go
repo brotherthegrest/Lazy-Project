@@ -1,32 +1,29 @@
 /*
 Copyright © 2023 Alan Hildebrandt <Alanhild715@gmail.com>
-
 */
 package cmd
 
 import (
 	"os"
 
-	"fmt"
-	"github.com/aditya43/clear-shell-screen-golang"
+	screen "github.com/aditya43/clear-shell-screen-golang"
+	"github.com/manifoldco/promptui"
 	"github.com/spf13/cobra"
 )
-func clear(){
-	
-}
-
-
+struct (
+	promptui.BGBlue
+)
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "Lazy-Project",
 	Short: "terminal based project manager",
-	Long: `Lazy-Project is a terminal based project manager insipred by LazyGit`,
+	Long:  `Lazy-Project is a terminal based project manager insipred by LazyGit`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
 		screen.Clear()
-		fmt.Println("Hello World!")
-	 },
+		promptui.Prompt
+	},
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -49,5 +46,3 @@ func init() {
 	// when this action is called directly.
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
-
-
