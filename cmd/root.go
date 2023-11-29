@@ -4,15 +4,44 @@ Copyright © 2023 Alan Hildebrandt <Alanhild715@gmail.com>
 package cmd
 
 import (
+	"fmt"
 	"os"
 
-	screen "github.com/aditya43/clear-shell-screen-golang"
-	"github.com/manifoldco/promptui"
+	"github.com/charmbracelet/bubbles/textinput"
+	"github.com/charmbracelet/bubbles/viewport"
+	tea "github.com/charmbracelet/bubbletea"
 	"github.com/spf13/cobra"
 )
-struct (
-	promptui.BGBlue
-)
+
+type model struct {
+	left  viewport.Model
+	right viewport.Model
+	input textinput.Model
+}
+
+func (m model) Init() tea.Cmd {
+	return nil
+}
+func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+	switch msg := msg.(type) {
+	case tea.KeyMsg:
+
+		switch msg.String() {
+		case "ctrl+c", "q":
+			return m, tea.Quit
+		}
+	}
+
+	m.left, _ = m.left.Update(msg)
+	m.right, _ = m.right.Update(msg)
+	m.input, _ = m.input.Update(msg)
+
+	return m, nil
+}
+func (m model) View() string {
+	return m.left.View() + m.input.View() + m.right.View()
+}
+
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "Lazy-Project",
@@ -21,8 +50,14 @@ var rootCmd = &cobra.Command{
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
-		screen.Clear()
-		promptui.Prompt
+		// var tprogram *tea.Program
+		fmt.Println("hello")
+		p := tea.NewProgram(model{})
+		if err := p.Start(); err != nil {
+			fmt.Printf("could not start program: %v", err)
+			os.Exit(1)
+		}
+		fmt.Println("hi")
 	},
 }
 
