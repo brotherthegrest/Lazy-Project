@@ -10,6 +10,7 @@ import (
 	"github.com/charmbracelet/bubbles/textinput"
 	"github.com/charmbracelet/bubbles/viewport"
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/charmbracelet/lipgloss"
 	"github.com/spf13/cobra"
 )
 
@@ -18,6 +19,24 @@ type model struct {
 	right viewport.Model
 	input textinput.Model
 }
+
+var littlething = lipgloss.NewStyle().
+	Background(lipgloss.Color("#ffffff")).
+	MarginTop(2).
+	MarginRight(4).
+	MarginBottom(2).
+	MarginLeft(20)
+
+var bigthing = lipgloss.NewStyle().
+	Foreground(lipgloss.Color("#ffffff")).
+	Margin(2).
+	Width(2).
+	Padding(2).
+	BorderStyle(lipgloss.RoundedBorder()).
+	BorderForeground(lipgloss.Color("228")).
+	BorderBackground(lipgloss.Color("63")).
+	BorderTop(true).
+	BorderLeft(true)
 
 func (m model) Init() tea.Cmd {
 	return nil
@@ -51,13 +70,14 @@ var rootCmd = &cobra.Command{
 	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
 		// var tprogram *tea.Program
-		fmt.Println("hello")
+		fmt.Println(bigthing.Render("hello"))
 		p := tea.NewProgram(model{})
 		if err := p.Start(); err != nil {
 			fmt.Printf("could not start program: %v", err)
 			os.Exit(1)
 		}
-		fmt.Println("hi")
+
+		fmt.Println(littlething.Render("hi"))
 	},
 }
 
