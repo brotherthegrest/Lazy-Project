@@ -20,23 +20,8 @@ type model struct {
 	input textinput.Model
 }
 
-var littlething = lipgloss.NewStyle().
-	Background(lipgloss.Color("#ffffff")).
-	MarginTop(2).
-	MarginRight(4).
-	MarginBottom(2).
-	MarginLeft(20)
-
-var bigthing = lipgloss.NewStyle().
-	Foreground(lipgloss.Color("#ffffff")).
-	Margin(2).
-	Width(2).
-	Padding(2).
-	BorderStyle(lipgloss.RoundedBorder()).
-	BorderForeground(lipgloss.Color("228")).
-	BorderBackground(lipgloss.Color("63")).
-	BorderTop(true).
-	BorderLeft(true)
+var option1 = lipgloss.NewStyle().Border(lipgloss.DoubleBorder(), true, true, true, true).Foreground(lipgloss.Color("#6f18f2")).Background(lipgloss.Color("#000000")).Height(20).Width(10).Padding(2).Margin(10)
+var option2 = lipgloss.NewStyle().Inherit(option1).Background(lipgloss.Color("#ea00ff"))
 
 func (m model) Init() tea.Cmd {
 	return nil
@@ -70,14 +55,14 @@ var rootCmd = &cobra.Command{
 	// has an action associated with it:
 	Run: func(cmd *cobra.Command, args []string) {
 		// var tprogram *tea.Program
-		fmt.Println(bigthing.Render("hello"))
 		p := tea.NewProgram(model{})
+
+		fmt.Println("joe mama")
 		if err := p.Start(); err != nil {
 			fmt.Printf("could not start program: %v", err)
 			os.Exit(1)
 		}
 
-		fmt.Println(littlething.Render("hi"))
 	},
 }
 
