@@ -7,12 +7,10 @@ import (
 	"fmt"
 
 	"os"
-	"time"
 
 	"github.com/charmbracelet/bubbles/textinput"
 	"github.com/charmbracelet/bubbles/viewport"
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/charmbracelet/lipgloss"
 	"github.com/spf13/cobra"
 )
 
@@ -28,9 +26,6 @@ type model struct {
 	fullscreen bool
 }
 
-func startup() startupcalls {
-	return startupcalls
-}
 func (m model) Init() tea.Cmd {
 	return nil
 
@@ -72,38 +67,6 @@ var rootCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		m := model{}
 		p := tea.NewProgram(&m)
-		i := tea.NewProgram(initialModel())
-		if _, err := i.Run(); err != nil {
-			fmt.Printf("Alas, there's been an error: %v", err)
-			os.Exit(1)
-		}
-
-		// Add a delay before exiting the program
-		time.Sleep(1 * time.Second)
-		// Now that the program has exited, we can use the height value from the model
-		option1 := lipgloss.NewStyle().
-			Border(lipgloss.DoubleBorder(), true, true, true, true).
-			Foreground(lipgloss.Color("#6f18f2")).
-			Background(lipgloss.Color("#000000")).
-			Height(10).
-			Width(10).
-			Faint(true).
-			Italic(true).
-			AlignVertical(lipgloss.Center)
-
-		option2 := lipgloss.NewStyle().
-			Border(lipgloss.DoubleBorder(), true, true, true, true).
-			Foreground(lipgloss.Color("#ea00ff")).
-			Background(lipgloss.Color("#000000")).
-			Height(m.height).
-			Width(10).
-			Padding(2).
-			Margin(10)
-
-		fmt.Print(option1.Render("joe mama"))
-		fmt.Print(option2.Render("cream balls"))
-		fmt.Println(m.height, m.width)
-
 		if _, err := p.Run(); err != nil {
 			fmt.Printf("could not start program: %v", err)
 			os.Exit(1)
